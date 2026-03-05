@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gedenk-Portal</title>
 
-  <!-- Optional: schöne Schriften (Netlify ok) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
@@ -26,7 +25,6 @@
       --radius-md: 16px;
       --radius-sm: 14px;
     }
-
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
@@ -37,18 +35,15 @@
         var(--bg);
       color: var(--ink);
     }
-
     a{ color: inherit; text-decoration:none; }
     button, input{ font: inherit; }
 
-    /* App frame (mobile look on desktop) */
     .app{
       max-width: 440px;
       margin: 0 auto;
-      padding: 14px 16px 110px;
+      padding: 14px 16px 120px;
     }
 
-    /* Header */
     .header{
       text-align:center;
       padding: 10px 0 14px;
@@ -82,7 +77,6 @@
       text-transform: uppercase;
     }
 
-    /* Cards */
     .card{
       background: var(--card);
       border-radius: var(--radius-xl);
@@ -90,14 +84,18 @@
       box-shadow: var(--shadow);
     }
 
-    /* Hero card */
+    /* HERO now clickable */
     .hero-wrap{ margin: 8px 0 14px; }
+    .heroLink{ display:block; }
+    .heroLink:focus-visible{ outline: none; box-shadow: 0 0 0 4px rgba(245,139,31,.18); border-radius: var(--radius-xl); }
     .hero{
       background: var(--soft);
       border: 2px solid var(--orange);
       padding: 18px;
       text-align:center;
+      transition: transform .08s ease, box-shadow .08s ease;
     }
+    .hero:hover{ transform: translateY(-1px); box-shadow: 0 18px 34px rgba(0,0,0,.10); }
     .hero-icon{
       width: 68px; height:68px;
       margin: 0 auto 10px;
@@ -131,33 +129,16 @@
       line-height: 1.4;
       font-size: 14px;
     }
-    .hero-cta{
+    .hero-hint{
       margin-top: 14px;
-      display:flex;
-      justify-content:center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .btn{
-      border: 0;
-      cursor: pointer;
-      border-radius: 18px;
-      padding: 12px 14px;
-      font-weight: 900;
-      letter-spacing: 1.2px;
-      font-size: 12px;
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-    }
-    .btn-primary{
-      background: #0B0B0D;
-      color: #fff;
-    }
-    .btn-ghost{
-      background: rgba(255,255,255,.7);
+      display:inline-block;
+      padding: 10px 12px;
+      border-radius: 16px;
       border: 2px solid rgba(0,0,0,.10);
-      color: var(--ink);
+      background: rgba(255,255,255,.7);
+      font-weight: 900;
+      letter-spacing: 1px;
+      font-size: 12px;
     }
 
     /* Help card */
@@ -232,10 +213,35 @@
     }
 
     .help-actions{ margin-top: 12px; }
+    .btn{
+      border: 0;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      font-size: 12px;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .btn-primary{
+      background: #0B0B0D;
+      color: #fff;
+    }
     .btn-wide{
       width:100%;
       height: 56px;
       justify-content:center;
+    }
+    .btn[disabled]{ opacity:.55; cursor:not-allowed; }
+
+    .note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.4;
     }
 
     .suggestions{
@@ -283,6 +289,7 @@
       color: var(--ink);
       font-weight: 700;
       line-height: 1.35;
+      white-space: pre-wrap;
     }
     .sugg-item .copy{
       margin-top: 10px;
@@ -300,7 +307,6 @@
       font-size: 12px;
     }
 
-    /* Section label */
     .section-label{
       margin: 10px 2px 10px;
       font-size: 12px;
@@ -310,7 +316,6 @@
       text-transform: uppercase;
     }
 
-    /* Institute grid */
     .grid{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
@@ -341,11 +346,7 @@
       justify-content:center;
     }
     .tile .ic svg{ width: 20px; height: 20px; opacity:.9; }
-    .tile .t{
-      font-weight: 900;
-      font-size: 14px;
-      margin: 0;
-    }
+    .tile .t{ font-weight: 900; font-size: 14px; margin: 0; }
     .tile .s{
       margin: 6px 0 0;
       font-size: 11px;
@@ -369,6 +370,7 @@
       margin: 0 auto;
       display:flex;
       justify-content: space-between;
+      align-items:flex-end;
       gap: 8px;
     }
     .navbtn{
@@ -390,11 +392,6 @@
       justify-content:center;
       transition: all .1s ease;
     }
-    .navbtn.active .bubble{
-      background: var(--soft);
-      border-color: var(--orange);
-    }
-    .navbtn .bubble svg{ width: 20px; height: 20px; }
     .navbtn span{
       font-size: 10px;
       letter-spacing: 1px;
@@ -404,8 +401,27 @@
       text-align:center;
     }
     .navbtn.active span{ color: var(--orange); }
+    .navbtn.active .bubble{ background: var(--soft); border-color: var(--orange); }
 
-    /* Simple pages */
+    /* BIG home button (Bestattung) */
+    .navbtn.home{
+      flex: 1.25;
+      transform: translateY(-6px);
+    }
+    .navbtn.home .bubble{
+      width: 64px; height:64px;
+      border-width: 3px;
+      border-color: var(--orange);
+      background: var(--soft);
+      box-shadow: 0 14px 26px rgba(245,139,31,.22);
+    }
+    .navbtn.home span{
+      color: var(--orange);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+    }
+
+    /* Pages */
     .page{ display:none; }
     .page.active{ display:block; }
 
@@ -423,40 +439,14 @@
       font-size: 24px;
     }
     .mini-card p{ margin:0; color: var(--muted); font-weight:700; line-height:1.5; }
-    .links{
-      margin-top: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .linkrow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 2px solid rgba(0,0,0,.10);
-      background:#fff;
-      font-weight: 900;
-    }
-    .linkrow small{
-      color: var(--muted);
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-left: 10px;
-    }
   </style>
 </head>
 
 <body>
   <main class="app">
-
-    <!-- PAGES -->
     <section id="page-bestattung" class="page active" aria-label="Bestattung">
       <header class="header">
         <div class="logo" aria-hidden="true" title="Gedenk-Portal">
-          <!-- flame -->
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 22c4.2 0 7-3 7-7.2 0-3.4-2-5.6-3.6-7.1-.9-.9-1.6-1.8-1.9-2.7-.1-.3-.5-.4-.7-.1-1.5 2.3-3.7 3.8-4.7 5.8-.3.7-.4 1.4-.2 2.2.1.5-.4.8-.8.5-.9-.7-1.6-1.9-1.5-3.6 0-.3-.4-.5-.6-.2C4 8.8 3 11 3 14.8 3 19 6.1 22 12 22Z" fill="#F58B1F"/>
           </svg>
@@ -466,36 +456,29 @@
       </header>
 
       <div class="hero-wrap">
-        <section class="card hero" aria-label="Bestattung Großschädl">
-          <div class="hero-icon" aria-hidden="true">
-            <!-- building -->
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 20V9.5L12 4l8 5.5V20" stroke="#12141A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 20v-6h6v6" stroke="#12141A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M12 8v3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/>
-              <path d="M10.5 9.5h3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
+        <!-- Whole card is clickable -->
+        <a class="heroLink" href="https://www.bestattung.grossschaedl.at/sterbefaelle/" target="_blank" rel="noopener" aria-label="Zu Bestattung Großschädl Sterbefälle">
+          <section class="card hero">
+            <div class="hero-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 20V9.5L12 4l8 5.5V20" stroke="#12141A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 20v-6h6v6" stroke="#12141A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 8v3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/>
+                <path d="M10.5 9.5h3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
 
-          <div class="hero-region">EGGERSDORF &amp; GRAZ-UMGEBUNG</div>
-          <h2 class="hero-name">Bestattung<br>Großschädl</h2>
-          <p class="hero-desc">Traditionelle Begleitung und aktuelle<br>Parten aus der Region.</p>
-
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="https://www.bestattung.grossschaedl.at/sterbefaelle/" target="_blank" rel="noopener">
-              Sterbefälle öffnen →
-            </a>
-            <button class="btn btn-ghost" id="scroll-help" type="button">
-              Hilfe bei den Worten ↓
-            </button>
-          </div>
-        </section>
+            <div class="hero-region">EGGERSDORF &amp; GRAZ-UMGEBUNG</div>
+            <h2 class="hero-name">Bestattung<br>Großschädl</h2>
+            <p class="hero-desc">Traditionelle Begleitung und aktuelle<br>Parten aus der Region.</p>
+            <span class="hero-hint">Antippen zum Öffnen →</span>
+          </section>
+        </a>
       </div>
 
       <section class="card help" id="hilfe" aria-label="Hilfe bei den Worten">
         <div class="help-head">
           <div class="help-icon" aria-hidden="true">
-            <!-- sparkle -->
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 2l1.3 4.2L18 7.5l-4.7 1.3L12 13l-1.3-4.2L6 7.5l4.7-1.3L12 2Z" fill="#12141A"/>
               <path d="M19 13l.9 2.7L23 16.5l-3.1.8L19 20l-.9-2.7L15 16.5l3.1-.8L19 13Z" fill="#12141A" opacity=".9"/>
@@ -505,8 +488,8 @@
         </div>
 
         <div class="tabs" role="tablist" aria-label="Textarten">
-          <div class="tab active" role="tab" aria-selected="true" data-tab="kondolenz">KONDOLENZ-<br>SPRUCH</div>
-          <div class="tab" role="tab" aria-selected="false" data-tab="parte">PARTEN-<br>TEXT</div>
+          <div class="tab active" role="tab" aria-selected="true" data-tab="kerze">GEDENK-<br>KERZE</div>
+          <div class="tab" role="tab" aria-selected="false" data-tab="kondolenzbuch">KONDOLENZ-<br>BUCH</div>
           <div class="tab" role="tab" aria-selected="false" data-tab="worte">PERSÖNLICHE<br>WORTE</div>
         </div>
 
@@ -514,6 +497,10 @@
 
         <div class="help-actions">
           <button id="load" class="btn btn-primary btn-wide" type="button">VORSCHLÄGE LADEN</button>
+        </div>
+
+        <div class="note" id="note">
+          Hinweis: Bei <b>Gedenkkerze</b> sind die Vorschläge auf <b>120 Zeichen</b> begrenzt.
         </div>
 
         <div id="suggestions" class="suggestions" aria-live="polite">
@@ -528,69 +515,44 @@
       <div class="section-label">WEITERE INSTITUTE</div>
 
       <section class="grid" aria-label="Weitere Institute">
-        <!-- Tiles (Links aus PDF) -->
         <a class="tile" href="https://www.eden.co.at/sterbefaelle/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5 0 9-3 9-9S17 3 12 3 3 7 3 12s4 9 9 9Z" stroke="#12141A" stroke-width="2"/><path d="M8 12h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="t">Bestattung Eden</p>
-          <p class="s">Graz &amp; Steiermark</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21c5 0 9-3 9-9S17 3 12 3 3 7 3 12s4 9 9 9Z" stroke="#12141A" stroke-width="2"/><path d="M8 12h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <p class="t">Bestattung Eden</p><p class="s">Graz &amp; Steiermark</p>
         </a>
 
         <a class="tile" href="https://www.bestattung-konrad.at/sterbefaelle/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M6 20V9l6-4 6 4v11" stroke="#12141A" stroke-width="2" stroke-linejoin="round"/><path d="M9 20v-5h6v5" stroke="#F58B1F" stroke-width="2" stroke-linejoin="round"/></svg>
-          </div>
-          <p class="t">Bestattung Konrad</p>
-          <p class="s">Südoststeiermark</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 20V9l6-4 6 4v11" stroke="#12141A" stroke-width="2" stroke-linejoin="round"/><path d="M9 20v-5h6v5" stroke="#F58B1F" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <p class="t">Bestattung Konrad</p><p class="s">Südoststeiermark</p>
         </a>
 
         <a class="tile" href="https://www.bestattung-himmelblau.at/todesanzeigen-uebersicht/todesanzeigen-graz/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M8 18h8" stroke="#12141A" stroke-width="2" stroke-linecap="round"/><path d="M7 10a5 5 0 0 1 10 0c0 4-5 8-5 8s-5-4-5-8Z" stroke="#F58B1F" stroke-width="2"/></svg>
-          </div>
-          <p class="t">Bestattung Himmelblau</p>
-          <p class="s">Graz &amp; Umgebung</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 18h8" stroke="#12141A" stroke-width="2" stroke-linecap="round"/><path d="M7 10a5 5 0 0 1 10 0c0 4-5 8-5 8s-5-4-5-8Z" stroke="#F58B1F" stroke-width="2"/></svg></div>
+          <p class="t">Bestattung Himmelblau</p><p class="s">Graz &amp; Umgebung</p>
         </a>
 
         <a class="tile" href="https://grazerbestattung.at/bestatungskalender/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10v18H7z" stroke="#12141A" stroke-width="2"/><path d="M9 7h6" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/><path d="M9 11h6" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="t">Grazer Bestattung</p>
-          <p class="s">Graz Stadt</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10v18H7z" stroke="#12141A" stroke-width="2"/><path d="M9 7h6" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/><path d="M9 11h6" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <p class="t">Grazer Bestattung</p><p class="s">Graz Stadt</p>
         </a>
 
         <a class="tile" href="https://trauer.kleinezeitung.at/traueranzeigen-suche/letzte-14-tage" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="#12141A" stroke-width="2"/><path d="M8 8h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/><path d="M8 12h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="t">Kleine Zeitung</p>
-          <p class="s">Traueranzeigen</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v16H6z" stroke="#12141A" stroke-width="2"/><path d="M8 8h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/><path d="M8 12h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <p class="t">Kleine Zeitung</p><p class="s">Traueranzeigen</p>
         </a>
 
         <a class="tile" href="https://www.bestattungpein.at/traueranzeigen" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-4.4 7-10a7 7 0 1 0-14 0c0 5.6 7 10 7 10Z" stroke="#12141A" stroke-width="2"/><path d="M12 10v3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="t">Bestattung Pein</p>
-          <p class="s">St. Marein</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-4.4 7-10a7 7 0 1 0-14 0c0 5.6 7 10 7 10Z" stroke="#12141A" stroke-width="2"/><path d="M12 10v3" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <p class="t">Bestattung Pein</p><p class="s">St. Marein</p>
         </a>
 
         <a class="tile" href="https://www.bestattungradaschitz.at/online-parten/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 20h16" stroke="#12141A" stroke-width="2" stroke-linecap="round"/><path d="M8 20V8l4-3 4 3v12" stroke="#F58B1F" stroke-width="2" stroke-linejoin="round"/></svg>
-          </div>
-          <p class="t">Bestattung Radaschitz</p>
-          <p class="s">St. Stefan</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20h16" stroke="#12141A" stroke-width="2" stroke-linecap="round"/><path d="M8 20V8l4-3 4 3v12" stroke="#F58B1F" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <p class="t">Bestattung Radaschitz</p><p class="s">St. Stefan</p>
         </a>
 
         <a class="tile" href="https://www.bestattung-wolf.com/gedenkportal/" target="_blank" rel="noopener">
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#F58B1F"/><path d="M5 21h14" stroke="#12141A" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <p class="t">Bestattung Wolf</p>
-          <p class="s">Leibnitz</p>
+          <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#F58B1F"/><path d="M5 21h14" stroke="#12141A" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <p class="t">Bestattung Wolf</p><p class="s">Leibnitz</p>
         </a>
       </section>
     </section>
@@ -598,48 +560,28 @@
     <section id="page-trauerhilfe" class="page" aria-label="Trauerhilfe">
       <div class="mini-card">
         <h2>Trauerhilfe</h2>
-        <p>Hier kannst du später Inhalte wie Trauerbegleitung, Ratgeber, Texte, Rituale oder Hilfsangebote einbauen.</p>
-        <div class="links">
-          <a class="linkrow" href="https://www.einblicke.graz-seckau.at/pfarre/6048/pfarrblatteinblicke" target="_blank" rel="noopener">
-            Pfarrblatt online <small>Öffnen</small>
-          </a>
-        </div>
+        <p>Platzhalter – hier kannst du später Inhalte wie Trauerbegleitung, Ratgeber und Hilfsangebote ergänzen.</p>
       </div>
     </section>
 
     <section id="page-profil" class="page" aria-label="Profil">
       <div class="mini-card">
         <h2>Profil</h2>
-        <p>Platzhalter: später Login, Favoriten, gespeicherte Texte, Einstellungen usw.</p>
-        <div class="links">
-          <a class="linkrow" href="https://app.stiller-begleiter.at/" target="_blank" rel="noopener">
-            Friedhof Gräbersuche <small>Öffnen</small>
-          </a>
-        </div>
+        <p>Platzhalter – später Login, Favoriten, gespeicherte Texte, Einstellungen.</p>
       </div>
     </section>
 
     <section id="page-tv" class="page" aria-label="TV & Infos">
       <div class="mini-card">
         <h2>TV &amp; Infos</h2>
-        <p>Hier kannst du später Hinweise, Termine, Gottesdienste, Infos &amp; Links sammeln.</p>
-        <div class="links">
-          <a class="linkrow" href="https://www.einblicke.graz-seckau.at/pfarre/6048/diepfarren/stmareinampickelbach/weitereterminestmareinamp" target="_blank" rel="noopener">
-            St. Marein Termine <small>Öffnen</small>
-          </a>
-          <a class="linkrow" href="https://www.gottesdienst.at/kirchenbeitrag/calendar_list_current_gottesdienst.siteswift?s=25698&t=f7b89c92ba03dcbf&ts=1772741326" target="_blank" rel="noopener">
-            TV-Messen Gottesdienste <small>Öffnen</small>
-          </a>
-        </div>
+        <p>Platzhalter – später Termine, Hinweise, Links.</p>
       </div>
     </section>
-
   </main>
 
-  <!-- Bottom Nav -->
   <nav class="bottom" aria-label="Navigation">
     <div class="bottom-inner">
-      <div class="navbtn active" data-page="bestattung" role="button" tabindex="0" aria-label="Bestattung">
+      <div class="navbtn home active" data-page="bestattung" role="button" tabindex="0" aria-label="Bestattung (Start)">
         <div class="bubble" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14v12H5z" stroke="#12141A" stroke-width="2"/><path d="M8 10h8" stroke="#F58B1F" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
@@ -670,74 +612,58 @@
   </nav>
 
   <script>
-    // --- Tabs (Hilfe bei den Worten) ---
+    // ---------- Tabs ----------
     const tabs = document.querySelectorAll(".tab");
-    let activeTab = "kondolenz";
+    let activeTab = "kerze";
+
+    function updateNote(){
+      const note = document.getElementById("note");
+      if(activeTab === "kerze"){
+        note.innerHTML = 'Hinweis: Bei <b>Gedenkkerze</b> sind die Vorschläge auf <b>120 Zeichen</b> begrenzt.';
+      } else {
+        note.textContent = "Hinweis: Es werden maximal 3 würdige Textvorschläge erstellt.";
+      }
+    }
 
     tabs.forEach(t => {
       t.addEventListener("click", () => {
-        tabs.forEach(x => x.classList.remove("active"));
+        tabs.forEach(x => { x.classList.remove("active"); x.setAttribute("aria-selected","false"); });
         t.classList.add("active");
+        t.setAttribute("aria-selected","true");
         activeTab = t.dataset.tab;
-        // UX: Wenn schon Vorschläge offen sind, neu filtern
-        if (document.getElementById("suggestions").classList.contains("show")) {
-          renderSuggestions();
-        }
+        updateNote();
       });
     });
+    updateNote();
 
-    // --- Vorschläge (Demo-Set, kann später erweitert werden) ---
-    const TEXTS = {
-      kondolenz: [
-        "Mein aufrichtiges Beileid. Mögen die Erinnerungen Trost spenden und Kraft geben.",
-        "In stiller Anteilnahme. Ich wünsche euch viel Stärke in dieser schweren Zeit.",
-        "Die Spuren eines geliebten Menschen bleiben – in Gedanken, Worten und Herzen.",
-        "Wir teilen eure Trauer. Möge euch Liebe und Zusammenhalt durch diese Zeit tragen.",
-        "Wenn die Zeit endet, beginnt die Erinnerung."
-      ],
-      parte: [
-        "Wir nehmen Abschied von [Name]. In Liebe und Dankbarkeit bleiben wir verbunden.",
-        "Mit schwerem Herzen verabschieden wir uns von [Name]. Die Erinnerung bleibt lebendig.",
-        "[Name] ist friedlich eingeschlafen. Wir danken für die gemeinsame Zeit.",
-        "Wir trauern um [Name]. In unseren Herzen wirst du weiterleben.",
-        "Die Liebe endet nicht – sie verändert nur ihre Gestalt."
-      ],
-      worte: [
-        "Du fehlst. Und doch bist du da – in jedem Gedanken, in jeder Erinnerung.",
-        "Danke für alles, was du gegeben hast. Ich werde dich nie vergessen.",
-        "Manchmal reichen Worte nicht. Ich behalte dich in meinem Herzen.",
-        "Dein Lachen, deine Art, deine Wärme – all das bleibt.",
-        "Auf Wiedersehen ist nicht für immer. Es ist nur ein Abschied auf Zeit."
-      ]
-    };
-
-    function normalize(s){
-      return (s || "")
-        .toLowerCase()
-        .replace(/[ä]/g,"ae")
-        .replace(/[ö]/g,"oe")
-        .replace(/[ü]/g,"ue")
-        .replace(/[ß]/g,"ss");
-    }
-
+    // ---------- KI Vorschläge ----------
     const keywordEl = document.getElementById("keyword");
     const loadBtn = document.getElementById("load");
     const clearBtn = document.getElementById("clear");
     const box = document.getElementById("suggestions");
     const list = document.getElementById("suggList");
 
-    function renderSuggestions(){
-      const q = normalize(keywordEl.value.trim());
-      const base = TEXTS[activeTab] || [];
-      const filtered = !q ? base : base.filter(t => normalize(t).includes(q));
+    function setLoading(isLoading){
+      loadBtn.disabled = isLoading;
+      loadBtn.textContent = isLoading ? "ERSTELLE VORSCHLÄGE …" : "VORSCHLÄGE LADEN";
+    }
 
+    function trimTo120(str){
+      const s = (str || "").trim().replace(/\s+/g," ");
+      if(s.length <= 120) return s;
+      return s.slice(0, 119).replace(/\s+\S*$/,"").trim() + "…";
+    }
+
+    function renderSuggestions(texts){
       list.innerHTML = "";
-      filtered.slice(0, 6).forEach((text) => {
+      (texts || []).slice(0,3).forEach((text) => {
+        const finalText = (activeTab === "kerze") ? trimTo120(text) : text;
+
         const item = document.createElement("div");
         item.className = "sugg-item";
 
         const p = document.createElement("p");
-        p.textContent = text;
+        p.textContent = finalText;
         item.appendChild(p);
 
         const copyWrap = document.createElement("div");
@@ -747,11 +673,11 @@
         copyBtn.textContent = "KOPIEREN";
         copyBtn.addEventListener("click", async () => {
           try {
-            await navigator.clipboard.writeText(text);
+            await navigator.clipboard.writeText(finalText);
             copyBtn.textContent = "KOPIERT ✓";
             setTimeout(() => (copyBtn.textContent = "KOPIEREN"), 900);
           } catch (e) {
-            alert("Kopieren hat nicht funktioniert (Browser-Rechte). Markiere den Text manuell.");
+            alert("Kopieren hat nicht funktioniert. Markiere den Text manuell.");
           }
         });
         copyWrap.appendChild(copyBtn);
@@ -761,26 +687,57 @@
       });
 
       box.classList.add("show");
-      if(filtered.length === 0){
-        const empty = document.createElement("div");
-        empty.className = "sugg-item";
-        empty.innerHTML = "<p>Keine Treffer. Versuch ein anderes Stichwort oder lass das Feld leer.</p>";
-        list.appendChild(empty);
+    }
+
+    async function fetchAiSuggestions(){
+      const keyword = keywordEl.value.trim();
+      setLoading(true);
+
+      try{
+        const res = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            tab: activeTab,           // kerze | kondolenzbuch | worte
+            keyword: keyword,         // name oder stichwort
+            max: 3,
+            maxChars: activeTab === "kerze" ? 120 : null
+          })
+        });
+
+        if(!res.ok){
+          const t = await res.text();
+          throw new Error(t || "Fehler beim KI-Request");
+        }
+
+        const data = await res.json();
+        const texts = Array.isArray(data.texts) ? data.texts : [];
+        if(texts.length === 0){
+          renderSuggestions(["Keine Vorschläge erhalten. Bitte anderes Stichwort probieren."]);
+        } else {
+          renderSuggestions(texts);
+        }
+      }catch(err){
+        // Fallback (wenn Function noch nicht eingerichtet ist)
+        renderSuggestions([
+          "KI ist noch nicht verbunden. Bitte Netlify Function /api/generate einrichten.",
+          "Danach erstellt die Seite automatisch würdige Texte nach Name/Stichwort.",
+          "Wenn du willst, sag 'fertig', dann checken wir gemeinsam die Einrichtung."
+        ]);
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     }
 
-    loadBtn.addEventListener("click", renderSuggestions);
+    loadBtn.addEventListener("click", fetchAiSuggestions);
+
     clearBtn.addEventListener("click", () => {
       box.classList.remove("show");
       list.innerHTML = "";
     });
 
-    // Scroll helper
-    document.getElementById("scroll-help").addEventListener("click", () => {
-      document.getElementById("hilfe").scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    // --- Bottom navigation: switch pages (simple) ---
+    // ---------- Bottom navigation ----------
     const navBtns = document.querySelectorAll(".navbtn");
     const pages = {
       bestattung: document.getElementById("page-bestattung"),
