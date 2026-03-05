@@ -1,18 +1,14 @@
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      headers: { "Content-Type": "text/plain" },
-      body: "Method Not Allowed",
-    };
+    return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
     const { tab, keyword, max, maxChars } = JSON.parse(event.body || "{}");
 
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const n = Math.min(Number(max || 3), 3);
 
@@ -26,22 +22,27 @@ export const handler = async (event) => {
         ? `Jeder Vorschlag MUSS maximal ${Number(maxChars || 120)} Zeichen (inkl. Leerzeichen) haben.`
         : `Würdevoll, warm, nicht kitschig, neutral formuliert (keine Religion erzwingen).`;
 
-    const response = await client.responses.create({
-      model: "gpt-5",
-      instructions:
+    const prompt =
 `Du schreibst würdige, einfühlsame Trauertexte auf Deutsch (Österreich passt).
 Gib GENAU ${n} Vorschläge als JSON zurück.
 Keine Emojis. Keine Nummerierung im Text.
 ${limitLine}
 
 Antwortformat (nur JSON):
-{ "texts": ["...", "...", "..."] }`,
-      input:
-`Erstelle ${n} Vorschläge für: ${kind}.
-Name/Stichwort: "${(keyword || "").trim() || "—"}"`
+{ "texts": ["...", "...", "..."] }
+
+Erstelle ${n} Vorschläge für: ${kind}.
+Name/Stichwort: "${(keyword || "").trim() || "—"}"`;
+
+    const resp = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+      config: {
+        temperature: 0.7,
+      },
     });
 
-    const out = response.output_text || "";
+    const out = resp.text || "";
     let parsed;
     try { parsed = JSON.parse(out); }
     catch { parsed = { texts: [out].filter(Boolean) }; }
