@@ -2,8 +2,14 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Gedenk-Portal | Elegante dunkle Version</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Gedenk-Portal | St. Marein</title>
+  <meta name="description" content="Gedenk-Portal mit Pfarrterminen, Pfarrblatt, Gräbersuche und TV-Messen." />
+  <meta name="theme-color" content="#1a1512" />
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,30 +17,30 @@
 
   <style>
     :root {
-      --bg: #161311;
-      --bg-soft: #1D1917;
-      --card: #211C19;
-      --card-2: #26211E;
-      --surface: #2B2521;
+      --bg: #141110;
+      --bg-soft: #1A1512;
+      --card: #1F1916;
+      --card-2: #241D19;
+      --surface: #2C231F;
 
-      --ink: #F4EDE6;
-      --muted: #B7AAA0;
-      --line: rgba(255, 237, 220, 0.10);
+      --ink: #F5EEE8;
+      --muted: #BCAE A3;
+      --line: rgba(245, 238, 232, 0.10);
 
-      --accent: #B69067;
-      --accent-strong: #D2B089;
-      --accent-soft: rgba(182, 144, 103, 0.12);
+      --gold: #C3A176;
+      --gold-soft: rgba(195, 161, 118, 0.12);
+      --gold-strong: #D9BB92;
 
-      --danger-bg: #2A1B19;
-      --danger-line: rgba(205, 143, 132, 0.25);
-      --danger-text: #E0ACA1;
+      --rose-bg: #2A1C1A;
+      --rose-line: rgba(226, 176, 166, 0.25);
+      --rose-text: #E7B8AC;
 
-      --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.22);
-      --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.28);
+      --shadow-sm: 0 10px 24px rgba(0,0,0,0.22);
+      --shadow-md: 0 18px 42px rgba(0,0,0,0.30);
 
-      --radius-xl: 26px;
+      --radius-xl: 28px;
       --radius-lg: 20px;
-      --radius-md: 14px;
+      --radius-md: 16px;
       --radius-pill: 999px;
     }
 
@@ -46,16 +52,17 @@
     html, body {
       height: 100%;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', system-ui, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(182, 144, 103, 0.14), transparent 28%),
-        linear-gradient(180deg, #181412 0%, #14110F 100%);
+      font-family: "Inter", system-ui, sans-serif;
       color: var(--ink);
       line-height: 1.65;
+      background:
+        radial-gradient(circle at top, rgba(195,161,118,0.14), transparent 30%),
+        linear-gradient(180deg, #171210 0%, #120F0D 100%);
     }
 
     img {
@@ -68,10 +75,24 @@
     }
 
     .app {
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto;
-      padding: 22px 16px 134px;
       min-height: 100vh;
+      padding: 24px 16px 132px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn .28s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .header {
@@ -80,103 +101,83 @@
     }
 
     .logo {
-      width: 78px;
-      height: 78px;
-      margin: 0 auto 15px;
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 16px;
       border-radius: 50%;
-      background: linear-gradient(180deg, #2B2521 0%, #211C19 100%);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(180deg, #2C231F 0%, #211A17 100%);
+      border: 1px solid rgba(245, 238, 232, 0.10);
       box-shadow: var(--shadow-md);
-      border: 1px solid var(--line);
       overflow: hidden;
     }
 
     .logo img {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       object-fit: contain;
     }
 
     .title {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 700;
-      font-size: 38px;
-      line-height: 1.05;
       margin: 0;
-      letter-spacing: -0.3px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 40px;
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: -0.4px;
     }
 
     .sub {
-      font-size: 12px;
-      letter-spacing: 1.8px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
       margin-top: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: #b5a89d;
     }
 
     .section-label {
+      margin: 28px 0 12px;
       font-size: 11px;
       font-weight: 800;
-      color: var(--muted);
       letter-spacing: 1.8px;
-      margin: 28px 0 12px;
       text-transform: uppercase;
-    }
-
-    .page {
-      display: none;
-      animation: fadeIn 0.28s ease;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      color: #b5a89d;
     }
 
     .card {
       position: relative;
       background: linear-gradient(180deg, var(--card-2) 0%, var(--card) 100%);
+      border: 1px solid var(--line);
       border-radius: var(--radius-xl);
       padding: 22px;
-      margin-bottom: 20px;
-      border: 1px solid var(--line);
       box-shadow: var(--shadow-sm);
+      margin-bottom: 20px;
     }
 
     .card::before {
       content: "";
       display: block;
-      width: 48px;
+      width: 52px;
       height: 2px;
-      border-radius: var(--radius-pill);
-      background: rgba(210, 176, 137, 0.42);
       margin-bottom: 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(217, 187, 146, 0.48);
     }
 
     .hero-card {
-      text-align: center;
-      text-decoration: none;
       display: block;
+      text-decoration: none;
+      text-align: center;
       color: inherit;
       background:
-        linear-gradient(145deg, rgba(182, 144, 103, 0.16) 0%, rgba(182, 144, 103, 0.05) 100%),
-        linear-gradient(180deg, #26211E 0%, #1F1A17 100%);
-      border: 1px solid rgba(210, 176, 137, 0.18);
-      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        linear-gradient(145deg, rgba(195,161,118,0.16) 0%, rgba(195,161,118,0.05) 100%),
+        linear-gradient(180deg, #26201C 0%, #1E1815 100%);
+      border: 1px solid rgba(217, 187, 146, 0.18);
       box-shadow: var(--shadow-md);
+      transition: transform .18s ease, border-color .18s ease;
     }
 
     .hero-card:active {
@@ -184,110 +185,105 @@
     }
 
     .hero-icon {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(180deg, #302925 0%, #241F1C 100%);
-      border-radius: 22px;
+      width: 74px;
+      height: 74px;
       margin: 0 auto 16px;
+      border-radius: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(210, 176, 137, 0.16);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+      background: linear-gradient(180deg, #312722 0%, #241D19 100%);
+      border: 1px solid rgba(217, 187, 146, 0.16);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.24);
       overflow: hidden;
     }
 
     .hero-icon img {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       object-fit: contain;
     }
 
     .hero-region {
       margin: 0;
       font-size: 11px;
-      letter-spacing: 1.9px;
       font-weight: 800;
-      color: var(--accent-strong);
+      letter-spacing: 1.8px;
       text-transform: uppercase;
+      color: var(--gold-strong);
     }
 
     .hero-title {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 34px;
-      line-height: 1.05;
-      font-weight: 700;
       margin: 8px 0 10px;
-      letter-spacing: -0.2px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 35px;
+      line-height: 1.04;
+      font-weight: 700;
     }
 
     .hero-text {
-      color: var(--muted);
-      font-size: 14px;
       margin: 0 0 16px;
+      font-size: 14px;
+      color: #c0b3a7;
     }
 
     .hero-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.04);
-      color: var(--ink);
       padding: 10px 16px;
       border-radius: var(--radius-pill);
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid rgba(255, 237, 220, 0.10);
-      box-shadow: inset 0 0 0 1px rgba(182, 144, 103, 0.06);
+      border: 1px solid rgba(245, 238, 232, 0.10);
+      background: rgba(255,255,255,0.04);
+      box-shadow: inset 0 0 0 1px rgba(195,161,118,0.06);
     }
 
     .partner-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
-      margin-top: 8px;
     }
 
     .partner-tile {
-      background: linear-gradient(180deg, #26211E 0%, #201B18 100%);
+      min-height: 124px;
       padding: 18px;
       border-radius: var(--radius-lg);
-      text-decoration: none;
-      color: inherit;
       text-align: center;
+      text-decoration: none;
+      background: linear-gradient(180deg, #26201C 0%, #201A17 100%);
       border: 1px solid var(--line);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 122px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      transition: transform .18s ease, background .18s ease;
     }
 
     .partner-tile:active {
       transform: scale(0.985);
-      background: linear-gradient(180deg, #2A2420 0%, #231D19 100%);
+      background: linear-gradient(180deg, #2b241f 0%, #241d19 100%);
     }
 
     .partner-logo-wrap {
       width: 46px;
       height: 46px;
+      margin-bottom: 10px;
       border-radius: 15px;
-      background: var(--surface);
-      border: 1px solid rgba(255, 237, 220, 0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 10px;
+      background: var(--surface);
+      border: 1px solid rgba(245, 238, 232, 0.08);
     }
 
     .partner-tile img {
       width: 26px;
       height: 26px;
-      border-radius: 6px;
       object-fit: contain;
+      border-radius: 6px;
     }
 
     .partner-tile h4 {
@@ -295,75 +291,30 @@
       font-size: 13px;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--ink);
     }
 
     .partner-tile p {
       margin: 6px 0 0;
       font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
       font-weight: 700;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      color: #b5a89d;
       line-height: 1.35;
     }
 
     .card-title {
       margin: 0 0 6px;
       font-family: "Cormorant Garamond", serif;
-      font-size: 30px;
-      font-weight: 700;
+      font-size: 31px;
       line-height: 1.05;
+      font-weight: 700;
     }
 
     .card-subtext {
       margin: 0 0 18px;
-      color: var(--muted);
       font-size: 14px;
-    }
-
-    .help-item {
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 237, 220, 0.08);
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .help-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .check-circle {
-      width: 22px;
-      height: 22px;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 2px;
-      position: relative;
-      background: rgba(182, 144, 103, 0.06);
-    }
-
-    .check-circle::after {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border-radius: 50%;
-      background: rgba(182, 144, 103, 0.22);
-    }
-
-    .help-item strong {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 2px;
-    }
-
-    .help-item small {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
+      color: #c0b3a7;
     }
 
     .link-list {
@@ -377,12 +328,12 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      background: linear-gradient(180deg, #26211E 0%, #201B18 100%);
-      border: 1px solid var(--line);
-      border-radius: 18px;
       padding: 14px 15px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #26201C 0%, #201A17 100%);
+      border: 1px solid var(--line);
       box-shadow: var(--shadow-sm);
-      transition: transform 0.18s ease, background 0.18s ease;
+      transition: transform .18s ease;
     }
 
     .quick-link:active {
@@ -393,13 +344,13 @@
       width: 42px;
       height: 42px;
       border-radius: 14px;
-      background: rgba(182, 144, 103, 0.10);
-      border: 1px solid rgba(210, 176, 137, 0.10);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--accent-strong);
       flex-shrink: 0;
+      color: var(--gold-strong);
+      background: rgba(195,161,118,0.10);
+      border: 1px solid rgba(217, 187, 146, 0.10);
     }
 
     .quick-link-text {
@@ -408,34 +359,76 @@
 
     .quick-link-title {
       display: block;
-      font-weight: 700;
       font-size: 14px;
-      color: var(--ink);
+      font-weight: 700;
       margin-bottom: 2px;
     }
 
     .quick-link-sub {
       display: block;
-      color: var(--muted);
       font-size: 12px;
+      color: #b5a89d;
       line-height: 1.45;
     }
 
+    .help-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(245, 238, 232, 0.08);
+    }
+
+    .help-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .check-circle {
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      position: relative;
+      border: 2px solid var(--gold);
+      background: rgba(195,161,118,0.06);
+    }
+
+    .check-circle::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: rgba(195,161,118,0.22);
+    }
+
+    .help-item strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .help-item small {
+      font-size: 12px;
+      color: #c0b3a7;
+      line-height: 1.5;
+    }
+
     .emergency-box {
-      background: var(--danger-bg);
-      border: 1px solid var(--danger-line);
+      margin-top: 15px;
       padding: 16px;
       border-radius: var(--radius-md);
-      margin-top: 15px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16);
+      background: var(--rose-bg);
+      border: 1px solid var(--rose-line);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
     }
 
     .emergency-title {
       margin: 0 0 6px;
-      color: var(--danger-text);
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: 0.3px;
+      color: var(--rose-text);
     }
 
     .emergency-number {
@@ -443,83 +436,51 @@
       font-size: 26px;
       line-height: 1.1;
       font-weight: 800;
-      color: var(--ink);
     }
 
     .emergency-number small {
       font-size: 13px;
       font-weight: 600;
-      color: var(--muted);
+      color: #b5a89d;
     }
 
     .emergency-note {
       margin: 6px 0 0;
       font-size: 12px;
-      color: var(--muted);
-    }
-
-    .empty-card {
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .empty-icon {
-      width: 54px;
-      height: 54px;
-      margin: 0 auto 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-    }
-
-    .empty-card p {
-      margin: 0;
-    }
-
-    .empty-card .empty-title {
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .empty-card .empty-text {
-      font-size: 13px;
-      color: var(--muted);
+      color: #c0b3a7;
     }
 
     .nav {
       position: fixed;
-      bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(24, 20, 18, 0.92);
-      backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(255, 237, 220, 0.08);
+      bottom: 0;
+      z-index: 100;
       display: flex;
       justify-content: space-around;
       padding: 10px 6px 24px;
-      z-index: 100;
+      background: rgba(22, 18, 16, 0.92);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(245, 238, 232, 0.08);
     }
 
     .nav-item {
+      flex: 1;
+      min-width: 0;
+      text-decoration: none;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 5px;
-      color: var(--muted);
-      text-decoration: none;
+      text-align: center;
+      color: #b5a89d;
       font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
-      flex: 1;
-      min-width: 0;
-      text-align: center;
     }
 
     .nav-item.active {
-      color: var(--accent-strong);
+      color: var(--gold-strong);
     }
 
     .nav-icon {
@@ -529,12 +490,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.18s ease;
+      transition: all .18s ease;
     }
 
     .nav-item.active .nav-icon {
-      background: rgba(182, 144, 103, 0.14);
-      box-shadow: inset 0 0 0 1px rgba(210, 176, 137, 0.10);
+      background: rgba(195,161,118,0.14);
+      box-shadow: inset 0 0 0 1px rgba(217, 187, 146, 0.10);
     }
 
     @media (max-width: 380px) {
@@ -544,19 +505,11 @@
       }
 
       .title {
-        font-size: 34px;
+        font-size: 36px;
       }
 
       .hero-title {
-        font-size: 30px;
-      }
-
-      .partner-grid {
-        gap: 10px;
-      }
-
-      .partner-tile {
-        padding: 16px 12px;
+        font-size: 31px;
       }
 
       .nav-item {
@@ -565,10 +518,8 @@
     }
   </style>
 </head>
-
 <body>
   <main class="app">
-    <!-- SEITE: START -->
     <section id="page-start" class="page active">
       <header class="header">
         <div class="logo">
@@ -592,181 +543,168 @@
 
       <div class="partner-grid">
         <a href="https://www.eden.co.at/sterbefaelle/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=eden.co.at" alt="Eden Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=eden.co.at" alt="Eden Logo"></div>
           <h4>Eden</h4>
           <p>Gleisdorf</p>
         </a>
 
         <a href="https://www.bestattung-konrad.at/sterbefaelle/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-konrad.at" alt="Konrad Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-konrad.at" alt="Konrad Logo"></div>
           <h4>Konrad</h4>
           <p>Südoststeiermark</p>
         </a>
 
         <a href="https://www.bestattung-himmelblau.at/todesanzeigen-uebersicht/todesanzeigen-graz/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-himmelblau.at" alt="Himmelblau Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-himmelblau.at" alt="Himmelblau Logo"></div>
           <h4>Himmelblau</h4>
           <p>Graz & Umgebung</p>
         </a>
 
         <a href="https://grazerbestattung.at/bestatungskalender/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=grazerbestattung.at" alt="Grazer Bestattung Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=grazerbestattung.at" alt="Grazer Bestattung Logo"></div>
           <h4>Grazer Best.</h4>
           <p>Stadt Graz</p>
         </a>
 
         <a href="https://trauer.kleinezeitung.at/traueranzeigen-suche/letzte-14-tage" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=kleinezeitung.at" alt="Kleine Zeitung Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=kleinezeitung.at" alt="Kleine Zeitung Logo"></div>
           <h4>Kleine Zeitung</h4>
           <p>Traueranzeigen</p>
         </a>
 
         <a href="https://www.bestattungpein.at/traueranzeigen" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=bestattungpein.at" alt="Pein Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=bestattungpein.at" alt="Pein Logo"></div>
           <h4>Pein</h4>
           <p>St. Stefan / Rosental</p>
         </a>
 
         <a href="https://www.bestattungradaschitz.at/online-parten/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=bestattungradaschitz.at" alt="Radaschitz Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=bestattungradaschitz.at" alt="Radaschitz Logo"></div>
           <h4>Radaschitz</h4>
           <p>Feldbach / Riegersburg</p>
         </a>
 
         <a href="https://www.bestattung-wolf.com/gedenkportal/" target="_blank" rel="noopener noreferrer" class="partner-tile">
-          <div class="partner-logo-wrap">
-            <img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-wolf.com" alt="Wolf Logo">
-          </div>
+          <div class="partner-logo-wrap"><img src="https://www.google.com/s2/favicons?sz=64&domain=bestattung-wolf.com" alt="Wolf Logo"></div>
           <h4>Wolf</h4>
           <p>Kalsdorf / Leibnitz</p>
         </a>
       </div>
     </section>
 
-    <!-- SEITE: ST. MAREIN TERMINE -->
     <section id="page-termine" class="page">
-      <header class="header" style="padding-top: 4px; padding-bottom: 22px;">
-        <h2 class="title" style="font-size: 34px;">St. Marein Termine</h2>
-        <p class="sub" style="letter-spacing: 1.2px;">Aktuelle Termine und Hinweise</p>
+      <header class="header" style="padding-top:4px;padding-bottom:22px;">
+        <h2 class="title" style="font-size:34px;">St. Marein Termine</h2>
+        <p class="sub" style="letter-spacing:1.2px;">Aktuelle Termine und Hinweise</p>
       </header>
 
       <div class="card">
         <h3 class="card-title">Pfarrtermine online</h3>
-        <p class="card-subtext">Hier finden Sie die aktuellen Termine der Pfarre St. Marein am Pickelbach.</p>
+        <p class="card-subtext">Direkt zur Übersicht der Pfarre St. Marein am Pickelbach.</p>
 
-        <a href="https://www.einblicke.graz-seckau.at/pfarre/6048/diepfarren/stmareinampickelbach/weitereterminestmareinamp" target="_blank" rel="noopener noreferrer" class="quick-link">
-          <div class="quick-link-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-          </div>
-          <div class="quick-link-text">
-            <span class="quick-link-title">Termine der Pfarre öffnen</span>
-            <span class="quick-link-sub">Direkt zur Übersicht von St. Marein am Pickelbach</span>
-          </div>
-        </a>
+        <div class="link-list">
+          <a href="https://www.einblicke.graz-seckau.at/pfarre/6048/diepfarren/stmareinampickelbach/weitereterminestmareinamp" target="_blank" rel="noopener noreferrer" class="quick-link">
+            <div class="quick-link-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div class="quick-link-text">
+              <span class="quick-link-title">Termine öffnen</span>
+              <span class="quick-link-sub">Pfarre St. Marein am Pickelbach</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- SEITE: PFARRBLATT -->
     <section id="page-pfarrblatt" class="page">
-      <header class="header" style="padding-top: 4px; padding-bottom: 22px;">
-        <h2 class="title" style="font-size: 34px;">Pfarrblatt online</h2>
-        <p class="sub" style="letter-spacing: 1.2px;">Einblicke und Informationen</p>
+      <header class="header" style="padding-top:4px;padding-bottom:22px;">
+        <h2 class="title" style="font-size:34px;">Pfarrblatt online</h2>
+        <p class="sub" style="letter-spacing:1.2px;">Einblicke und Mitteilungen</p>
       </header>
 
       <div class="card">
         <h3 class="card-title">Pfarrblatt Einblicke</h3>
-        <p class="card-subtext">Das aktuelle Pfarrblatt mit Mitteilungen, Terminen und Berichten.</p>
+        <p class="card-subtext">Aktuelle Informationen, Berichte und Termine der Pfarre.</p>
 
-        <a href="https://www.einblicke.graz-seckau.at/pfarre/6048/pfarrblatteinblicke" target="_blank" rel="noopener noreferrer" class="quick-link">
-          <div class="quick-link-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="8" y1="13" x2="16" y2="13"></line>
-              <line x1="8" y1="17" x2="13" y2="17"></line>
-            </svg>
-          </div>
-          <div class="quick-link-text">
-            <span class="quick-link-title">Pfarrblatt öffnen</span>
-            <span class="quick-link-sub">Direkt zum Online-Pfarrblatt der Pfarre</span>
-          </div>
-        </a>
+        <div class="link-list">
+          <a href="https://www.einblicke.graz-seckau.at/pfarre/6048/pfarrblatteinblicke" target="_blank" rel="noopener noreferrer" class="quick-link">
+            <div class="quick-link-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="8" y1="13" x2="16" y2="13"></line>
+                <line x1="8" y1="17" x2="13" y2="17"></line>
+              </svg>
+            </div>
+            <div class="quick-link-text">
+              <span class="quick-link-title">Pfarrblatt öffnen</span>
+              <span class="quick-link-sub">Online-Ausgabe direkt ansehen</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- SEITE: GRÄBERSUCHE -->
     <section id="page-graeber" class="page">
-      <header class="header" style="padding-top: 4px; padding-bottom: 22px;">
-        <h2 class="title" style="font-size: 34px;">Friedhof Gräbersuche</h2>
-        <p class="sub" style="letter-spacing: 1.2px;">Suchen und Erinnern</p>
+      <header class="header" style="padding-top:4px;padding-bottom:22px;">
+        <h2 class="title" style="font-size:34px;">Friedhof Gräbersuche</h2>
+        <p class="sub" style="letter-spacing:1.2px;">Suchen und Erinnern</p>
       </header>
 
       <div class="card">
         <h3 class="card-title">Digitale Gräbersuche</h3>
-        <p class="card-subtext">Über die Gräbersuche können Ruhestätten und Friedhofsinformationen gefunden werden.</p>
+        <p class="card-subtext">Ruhestätten und Friedhofsinformationen schnell finden.</p>
 
-        <a href="https://app.stiller-begleiter.at/" target="_blank" rel="noopener noreferrer" class="quick-link">
-          <div class="quick-link-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="7"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </div>
-          <div class="quick-link-text">
-            <span class="quick-link-title">Gräbersuche öffnen</span>
-            <span class="quick-link-sub">Direkt zur Suche im stillen Begleiter</span>
-          </div>
-        </a>
+        <div class="link-list">
+          <a href="https://app.stiller-begleiter.at/" target="_blank" rel="noopener noreferrer" class="quick-link">
+            <div class="quick-link-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <div class="quick-link-text">
+              <span class="quick-link-title">Gräbersuche öffnen</span>
+              <span class="quick-link-sub">Direkt zur Suche im stillen Begleiter</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- SEITE: TV-MESSEN -->
     <section id="page-tv" class="page">
-      <header class="header" style="padding-top: 4px; padding-bottom: 22px;">
-        <h2 class="title" style="font-size: 34px;">TV-Messen</h2>
-        <p class="sub" style="letter-spacing: 1.2px;">Gottesdienste und Übertragungen</p>
+      <header class="header" style="padding-top:4px;padding-bottom:22px;">
+        <h2 class="title" style="font-size:34px;">TV-Messen</h2>
+        <p class="sub" style="letter-spacing:1.2px;">Gottesdienste und Übertragungen</p>
       </header>
 
       <div class="card">
         <h3 class="card-title">Gottesdienste online</h3>
-        <p class="card-subtext">Hier gelangen Sie direkt zur Übersicht der übertragenen Gottesdienste und Messen.</p>
+        <p class="card-subtext">Direkt zur Übersicht der übertragenen Gottesdienste und Messen.</p>
 
-        <a href="https://www.gottesdienst.at/kirchenbeitrag/calendar_list_current_gottesdienst.siteswift?s=25698&t=f7b89c92ba03dcbf&ts=1772741326" target="_blank" rel="noopener noreferrer" class="quick-link">
-          <div class="quick-link-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-              <polyline points="17 2 12 7 7 2"></polyline>
-            </svg>
-          </div>
-          <div class="quick-link-text">
-            <span class="quick-link-title">TV-Messen öffnen</span>
-            <span class="quick-link-sub">Direkt zur aktuellen Gottesdienst-Übersicht</span>
-          </div>
-        </a>
+        <div class="link-list">
+          <a href="https://www.gottesdienst.at/kirchenbeitrag/calendar_list_current_gottesdienst.siteswift?s=25698&t=f7b89c92ba03dcbf&ts=1772741326" target="_blank" rel="noopener noreferrer" class="quick-link">
+            <div class="quick-link-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                <polyline points="17 2 12 7 7 2"></polyline>
+              </svg>
+            </div>
+            <div class="quick-link-text">
+              <span class="quick-link-title">TV-Messen öffnen</span>
+              <span class="quick-link-sub">Aktuelle Gottesdienst-Übersicht</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- BOTTOM NAV -->
   <nav class="nav" aria-label="Hauptnavigation">
     <a href="#" class="nav-item active" data-page="start">
       <div class="nav-icon">
@@ -837,12 +775,15 @@
         document.getElementById(`page-${targetPage}`).classList.add('active');
         item.classList.add('active');
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
   </script>
 </body>
 </html>
