@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Gedenk-Portal | St. Marein</title>
   <meta name="description" content="Gedenk-Portal mit Pfarrterminen, Pfarrblatt, Gräbersuche und TV-Messen." />
-  <meta name="theme-color" content="#1a1512" />
-
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="theme-color" content="#f6f1ea" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,26 +13,26 @@
 
   <style>
     :root {
-      --bg: #141110;
-      --bg-soft: #1A1512;
-      --card: #1F1916;
-      --card-2: #241D19;
-      --surface: #2C231F;
+      --bg: #F7F3EE;
+      --bg-soft: #FBF8F4;
+      --card: #FFFFFF;
+      --card-2: #FDFBF8;
+      --surface: #F4EEE7;
 
-      --ink: #F5EEE8;
-      --muted: #BCAE A3;
-      --line: rgba(245, 238, 232, 0.10);
+      --ink: #2B2623;
+      --muted: #7A7068;
+      --line: rgba(109, 87, 66, 0.12);
 
-      --gold: #C3A176;
-      --gold-soft: rgba(195, 161, 118, 0.12);
-      --gold-strong: #D9BB92;
+      --accent: #B58A5A;
+      --accent-soft: rgba(181, 138, 90, 0.11);
+      --accent-strong: #9D7448;
 
-      --rose-bg: #2A1C1A;
-      --rose-line: rgba(226, 176, 166, 0.25);
-      --rose-text: #E7B8AC;
+      --rose-bg: #FCF3F0;
+      --rose-line: rgba(194, 129, 114, 0.18);
+      --rose-text: #9A5346;
 
-      --shadow-sm: 0 10px 24px rgba(0,0,0,0.22);
-      --shadow-md: 0 18px 42px rgba(0,0,0,0.30);
+      --shadow-sm: 0 8px 22px rgba(65, 45, 28, 0.06);
+      --shadow-md: 0 14px 34px rgba(65, 45, 28, 0.08);
 
       --radius-xl: 28px;
       --radius-lg: 20px;
@@ -61,8 +57,8 @@
       color: var(--ink);
       line-height: 1.65;
       background:
-        radial-gradient(circle at top, rgba(195,161,118,0.14), transparent 30%),
-        linear-gradient(180deg, #171210 0%, #120F0D 100%);
+        radial-gradient(circle at top, rgba(181, 138, 90, 0.10), transparent 28%),
+        linear-gradient(180deg, #FBF8F4 0%, #F5F0E8 100%);
     }
 
     img {
@@ -108,8 +104,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(180deg, #2C231F 0%, #211A17 100%);
-      border: 1px solid rgba(245, 238, 232, 0.10);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F7F1EA 100%);
+      border: 1px solid var(--line);
       box-shadow: var(--shadow-md);
       overflow: hidden;
     }
@@ -135,7 +131,7 @@
       font-weight: 600;
       letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: #b5a89d;
+      color: var(--muted);
     }
 
     .section-label {
@@ -144,7 +140,7 @@
       font-weight: 800;
       letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: #b5a89d;
+      color: var(--muted);
     }
 
     .card {
@@ -164,7 +160,7 @@
       height: 2px;
       margin-bottom: 14px;
       border-radius: var(--radius-pill);
-      background: rgba(217, 187, 146, 0.48);
+      background: rgba(181, 138, 90, 0.45);
     }
 
     .hero-card {
@@ -173,11 +169,11 @@
       text-align: center;
       color: inherit;
       background:
-        linear-gradient(145deg, rgba(195,161,118,0.16) 0%, rgba(195,161,118,0.05) 100%),
-        linear-gradient(180deg, #26201C 0%, #1E1815 100%);
-      border: 1px solid rgba(217, 187, 146, 0.18);
+        linear-gradient(145deg, rgba(181, 138, 90, 0.10) 0%, rgba(181, 138, 90, 0.04) 100%),
+        linear-gradient(180deg, #FFFFFF 0%, #FBF6F1 100%);
+      border: 1px solid rgba(181, 138, 90, 0.22);
       box-shadow: var(--shadow-md);
-      transition: transform .18s ease, border-color .18s ease;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
 
     .hero-card:active {
@@ -192,9 +188,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(180deg, #312722 0%, #241D19 100%);
-      border: 1px solid rgba(217, 187, 146, 0.16);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.24);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F6EFE7 100%);
+      border: 1px solid rgba(181, 138, 90, 0.18);
+      box-shadow: 0 8px 18px rgba(80, 55, 35, 0.08);
       overflow: hidden;
     }
 
@@ -210,7 +206,7 @@
       font-weight: 800;
       letter-spacing: 1.8px;
       text-transform: uppercase;
-      color: var(--gold-strong);
+      color: var(--accent-strong);
     }
 
     .hero-title {
@@ -224,7 +220,7 @@
     .hero-text {
       margin: 0 0 16px;
       font-size: 14px;
-      color: #c0b3a7;
+      color: var(--muted);
     }
 
     .hero-cta {
@@ -235,9 +231,9 @@
       border-radius: var(--radius-pill);
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid rgba(245, 238, 232, 0.10);
-      background: rgba(255,255,255,0.04);
-      box-shadow: inset 0 0 0 1px rgba(195,161,118,0.06);
+      border: 1px solid rgba(109, 87, 66, 0.10);
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 4px 12px rgba(65, 45, 28, 0.05);
     }
 
     .partner-grid {
@@ -252,7 +248,7 @@
       border-radius: var(--radius-lg);
       text-align: center;
       text-decoration: none;
-      background: linear-gradient(180deg, #26201C 0%, #201A17 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCF8F4 100%);
       border: 1px solid var(--line);
       box-shadow: var(--shadow-sm);
       display: flex;
@@ -264,7 +260,7 @@
 
     .partner-tile:active {
       transform: scale(0.985);
-      background: linear-gradient(180deg, #2b241f 0%, #241d19 100%);
+      background: linear-gradient(180deg, #FFFDFB 0%, #F8F1E9 100%);
     }
 
     .partner-logo-wrap {
@@ -276,7 +272,7 @@
       align-items: center;
       justify-content: center;
       background: var(--surface);
-      border: 1px solid rgba(245, 238, 232, 0.08);
+      border: 1px solid rgba(109, 87, 66, 0.08);
     }
 
     .partner-tile img {
@@ -299,7 +295,7 @@
       font-weight: 700;
       letter-spacing: 0.9px;
       text-transform: uppercase;
-      color: #b5a89d;
+      color: var(--muted);
       line-height: 1.35;
     }
 
@@ -314,7 +310,7 @@
     .card-subtext {
       margin: 0 0 18px;
       font-size: 14px;
-      color: #c0b3a7;
+      color: var(--muted);
     }
 
     .link-list {
@@ -330,7 +326,7 @@
       text-decoration: none;
       padding: 14px 15px;
       border-radius: 18px;
-      background: linear-gradient(180deg, #26201C 0%, #201A17 100%);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCF8F4 100%);
       border: 1px solid var(--line);
       box-shadow: var(--shadow-sm);
       transition: transform .18s ease;
@@ -348,9 +344,9 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: var(--gold-strong);
-      background: rgba(195,161,118,0.10);
-      border: 1px solid rgba(217, 187, 146, 0.10);
+      color: var(--accent-strong);
+      background: var(--accent-soft);
+      border: 1px solid rgba(181, 138, 90, 0.12);
     }
 
     .quick-link-text {
@@ -367,7 +363,7 @@
     .quick-link-sub {
       display: block;
       font-size: 12px;
-      color: #b5a89d;
+      color: var(--muted);
       line-height: 1.45;
     }
 
@@ -376,7 +372,7 @@
       align-items: flex-start;
       gap: 12px;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(245, 238, 232, 0.08);
+      border-bottom: 1px solid rgba(109, 87, 66, 0.08);
     }
 
     .help-item:last-child {
@@ -391,8 +387,8 @@
       flex-shrink: 0;
       border-radius: 50%;
       position: relative;
-      border: 2px solid var(--gold);
-      background: rgba(195,161,118,0.06);
+      border: 2px solid var(--accent);
+      background: rgba(181, 138, 90, 0.06);
     }
 
     .check-circle::after {
@@ -400,7 +396,7 @@
       position: absolute;
       inset: 5px;
       border-radius: 50%;
-      background: rgba(195,161,118,0.22);
+      background: rgba(181, 138, 90, 0.20);
     }
 
     .help-item strong {
@@ -411,7 +407,7 @@
 
     .help-item small {
       font-size: 12px;
-      color: #c0b3a7;
+      color: var(--muted);
       line-height: 1.5;
     }
 
@@ -421,7 +417,7 @@
       border-radius: var(--radius-md);
       background: var(--rose-bg);
       border: 1px solid var(--rose-line);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      box-shadow: 0 6px 16px rgba(140, 95, 72, 0.07);
     }
 
     .emergency-title {
@@ -441,13 +437,13 @@
     .emergency-number small {
       font-size: 13px;
       font-weight: 600;
-      color: #b5a89d;
+      color: var(--muted);
     }
 
     .emergency-note {
       margin: 6px 0 0;
       font-size: 12px;
-      color: #c0b3a7;
+      color: var(--muted);
     }
 
     .nav {
@@ -459,9 +455,10 @@
       display: flex;
       justify-content: space-around;
       padding: 10px 6px 24px;
-      background: rgba(22, 18, 16, 0.92);
+      background: rgba(255, 251, 247, 0.92);
       backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(245, 238, 232, 0.08);
+      border-top: 1px solid rgba(109, 87, 66, 0.08);
+      box-shadow: 0 -8px 24px rgba(65, 45, 28, 0.04);
     }
 
     .nav-item {
@@ -473,14 +470,14 @@
       align-items: center;
       gap: 5px;
       text-align: center;
-      color: #b5a89d;
+      color: var(--muted);
       font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
     }
 
     .nav-item.active {
-      color: var(--gold-strong);
+      color: var(--accent-strong);
     }
 
     .nav-icon {
@@ -494,8 +491,8 @@
     }
 
     .nav-item.active .nav-icon {
-      background: rgba(195,161,118,0.14);
-      box-shadow: inset 0 0 0 1px rgba(217, 187, 146, 0.10);
+      background: rgba(181, 138, 90, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(181, 138, 90, 0.10);
     }
 
     @media (max-width: 380px) {
@@ -778,12 +775,6 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
-      });
-    }
   </script>
 </body>
 </html>
